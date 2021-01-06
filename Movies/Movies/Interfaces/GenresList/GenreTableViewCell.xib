@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GenreTableViewCell" customModule="Movies" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fcs-8v-LyI">
+                        <rect key="frame" x="20" y="10" width="280" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfP-CW-gBf">
+                                <rect key="frame" x="10" y="10" width="260" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZfP-CW-gBf" firstAttribute="leading" secondItem="Fcs-8v-LyI" secondAttribute="leading" constant="10" id="Lsc-JA-9vj"/>
+                            <constraint firstItem="ZfP-CW-gBf" firstAttribute="centerY" secondItem="Fcs-8v-LyI" secondAttribute="centerY" id="c0N-tN-8q1"/>
+                            <constraint firstItem="ZfP-CW-gBf" firstAttribute="top" secondItem="Fcs-8v-LyI" secondAttribute="top" constant="10" id="eUu-Et-z9a"/>
+                            <constraint firstItem="ZfP-CW-gBf" firstAttribute="centerX" secondItem="Fcs-8v-LyI" secondAttribute="centerX" id="xdO-gc-6qx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Fcs-8v-LyI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ag5-Tv-Acu"/>
+                    <constraint firstItem="Fcs-8v-LyI" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="h22-l0-3Gh"/>
+                    <constraint firstItem="Fcs-8v-LyI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="hL4-CP-xLe"/>
+                    <constraint firstItem="Fcs-8v-LyI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="mg7-c8-HDe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="titleLabel" destination="ZfP-CW-gBf" id="Huz-cd-Yem"/>
+            </connections>
+            <point key="canvasLocation" x="141" y="79"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

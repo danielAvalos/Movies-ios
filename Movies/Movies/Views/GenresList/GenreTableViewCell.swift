@@ -15,3 +15,20 @@ final class GenreTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 }
+
+// MARK: - Private functions
+private extension GenreTableViewCell {
+    func updateUI() {
+    }
+}
+
+// MARK: - GenreListConfigurable
+extension GenreTableViewCell: GenreListConfigurable {
+
+    func configure(with viewModel: GenreListRepresentable) {
+        guard let viewModel = viewModel as? GenreListViewModel else {
+            return
+        }
+        titleLabel.text = viewModel.model.name
+    }
+}

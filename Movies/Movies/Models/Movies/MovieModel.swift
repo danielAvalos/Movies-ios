@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct MovieModel: Codable {
+    let id: Int?
+}

@@ -8,7 +8,9 @@
 import UIKit
 
 protocol GenresListDisplayLogic: class {
-    func displayGenresList(_ viewmodel: [GenreListViewModel], message: String)
+    func displayGenresList(_ viewmodel: [GenreListViewModel])
+    func displayMessage(model: MessageModel)
+    func displayError(model: ErrorModel)
 }
 
 final class GenresListTableViewController: UITableViewController {
@@ -30,15 +32,48 @@ final class GenresListTableViewController: UITableViewController {
         UISearchController()
     }()
 
+    // MARK: Object lifecycle
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+        interactor?.prepareGenresList()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigation()
     }
 }
 
 // MARK: - GenresListDisplayLogic
 
 extension GenresListTableViewController: GenresListDisplayLogic {
-    func displayGenresList(_ viewmodel: [GenreListViewModel], message: String) {
+
+    func displayMessage(model: MessageModel) {
+    }
+
+    func displayError(model: ErrorModel) {
+    }
+
+    func displayGenresList(_ viewmodel: [GenreListViewModel]) {
+        dataProvider.update(rows: viewmodel)
+        if !viewmodel.isEmpty {
+            tableView.tableHeaderView = nil
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }
 
@@ -55,7 +90,15 @@ extension GenresListTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        // swiftlint:disable:next force_unwrapping
+        let viewModel = self.dataProvider[indexPath]!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GenreTableViewCell.reuseIdentifier) else {
+            fatalError("GenreTableViewCell Cell Not Found - Reuse identifier: \(GenreTableViewCell.reuseIdentifier)")
+        }
+        guard let configurableCell = cell as? GenreListConfigurable else {
+            fatalError("GenreTableViewCell Must Conform with MainnConfigurable")
+        }
+        configurableCell.configure(with: viewModel)
         return cell
     }
 }

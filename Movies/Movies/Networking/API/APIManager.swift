@@ -22,9 +22,9 @@ enum APIRouter: URLRequestConvertible {
     var path: String {
         switch self {
         case .getGenresList:
-            return "/api/v1/counters"
-        case .getMoviesByGenre:
-            return "/api/v1/counter"
+            return "/genre/movie/list?api_key=\(ConfigManager.apiKey.rawValue)"
+        case let .getMoviesByGenre(id):
+            return "/movie/\(id)/lists?api_key=\(ConfigManager.apiKey.rawValue)"
         }
     }
 
@@ -44,7 +44,7 @@ enum APIRouter: URLRequestConvertible {
     }
 
     func asURLRequest() throws -> URLRequest {
-        let url = try Config.apiBaseUrl.asURL().appendingPathComponent(path)
+        let url = try "\(Config.apiBaseUrl)\(path)".asURL()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         urlRequest = try encoding.encode(urlRequest, with: parameters)
@@ -53,5 +53,5 @@ enum APIRouter: URLRequestConvertible {
 }
 
 struct Config {
-    static let apiBaseUrl = "https://api.themoviedb.org"
+    static let apiBaseUrl = "https://api.themoviedb.org/3"
 }

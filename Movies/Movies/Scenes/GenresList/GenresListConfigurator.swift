@@ -10,7 +10,7 @@ import Foundation
 struct GenresListConfigurator {
 
     static func configure(_ viewController: GenresListTableViewController) {
-        let service = MoviesService()
+        let service = GenresService()
         let interactor = GenresListInteractor(service: service)
         let presenter = GenresListPresenter()
         let router = GenresListRouter()

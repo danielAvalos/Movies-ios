@@ -15,6 +15,8 @@ struct ErrorModel: ErrorRepresentable {
             return "Something went wrong, please check your connection and try again"
         case .errorServer:
             return "Something went wrong, the service is not available, please try again later"
+        case .notAuthorized:
+            return "You are not authorized to use the service"
         case .other:
             return descriptionLocalizable ?? ""
         }
@@ -32,6 +34,8 @@ struct ErrorModel: ErrorRepresentable {
             return "Not Found"
         case .errorServer:
             return "Error in Server"
+        case .notAuthorized:
+            return "Not authorized"
         case .other:
             return descriptionLocalizable ?? ""
         }
@@ -49,6 +53,7 @@ enum ErrorCode {
     case notConnection
     case unknown
     case badRequest
+    case notAuthorized
     case errorServer
     case notFound
     case other

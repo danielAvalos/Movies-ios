@@ -19,14 +19,14 @@ final class GenresListInteractor: GenresListDataStore {
 
     var presenter: GenresListPresentationLogic?
 
-    private let service: MoviesService
+    private let service: GenresService
 
     // MARK: - GenresListDataStore
 
     var isSearching: Bool = false
     var genresList: [GenreModel] = []
 
-    init(service: MoviesService) {
+    init(service: GenresService) {
         self.service = service
     }
 }
@@ -46,11 +46,27 @@ extension GenresListInteractor: GenresListBusinessLogic {
         isSearching = false
         if ReachabilityManager.shared.isConnected {
             service.getGenresList { [weak self] (model, error) in
-                guard let strongSelf = self else {
+                guard let strongSelf = self,
+                      let model = model else {
                     return
                 }
+                guard let error = error else {
+                    strongSelf.genresList = model.genres ?? []
+                    strongSelf.presenter?.presentGenresListResponse(strongSelf.createGenreListResponse(model: strongSelf.genresList))
+                    return
+                }
+                strongSelf.presenter?.presentError(error)
             }
         } else {
         }
+    }
+}
+
+// MARK: - Private functions
+
+private extension GenresListInteractor {
+
+    func createGenreListResponse(model: [GenreModel]) -> GenresResponse {
+        return GenresResponse(genres: model, isSearching: isSearching)
     }
 }

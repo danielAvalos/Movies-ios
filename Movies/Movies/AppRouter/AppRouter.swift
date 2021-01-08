@@ -16,7 +16,7 @@ class AppRouter {
     }
 
     func start() {
-        guard let genresListViewController = GenresListTableViewController.instantiate() else {
+        guard let genresListViewController = MoviesListViewController.instantiate() else {
             return
         }
         let navigationController = UINavigationController(rootViewController: genresListViewController)

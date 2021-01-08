@@ -8,9 +8,9 @@
 import UIKit
 
 protocol GenresListDisplayLogic: class {
-    func displayGenresList(_ viewmodel: [GenreListViewModel])
-    func displayMessage(model: MessageModel)
-    func displayError(model: ErrorModel)
+    func displayGenresList(_ viewmodel: [GenreViewModel])
+    func displayMessage(model: Message)
+    func displayError(model: Error)
 }
 
 final class GenresListTableViewController: UITableViewController {
@@ -19,7 +19,7 @@ final class GenresListTableViewController: UITableViewController {
     var router: GenresListRoutingLogic?
     var isopenSearch: Bool = false
 
-    private var dataProvider = GenreListDataProvider(rows: [])
+    private var dataProvider = GenreDataProvider(rows: [])
 
     static func instantiate() -> UIViewController? {
         let storyboard = UIStoryboard(name: StoryboardName.genresList.rawValue,
@@ -47,7 +47,7 @@ final class GenresListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        interactor?.prepareGenresList()
+        interactor?.prepareList()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,13 +60,13 @@ final class GenresListTableViewController: UITableViewController {
 
 extension GenresListTableViewController: GenresListDisplayLogic {
 
-    func displayMessage(model: MessageModel) {
+    func displayMessage(model: Message) {
     }
 
-    func displayError(model: ErrorModel) {
+    func displayError(model: Error) {
     }
 
-    func displayGenresList(_ viewmodel: [GenreListViewModel]) {
+    func displayGenresList(_ viewmodel: [GenreViewModel]) {
         dataProvider.update(rows: viewmodel)
         if !viewmodel.isEmpty {
             tableView.tableHeaderView = nil
@@ -95,11 +95,20 @@ extension GenresListTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GenreTableViewCell.reuseIdentifier) else {
             fatalError("GenreTableViewCell Cell Not Found - Reuse identifier: \(GenreTableViewCell.reuseIdentifier)")
         }
-        guard let configurableCell = cell as? GenreListConfigurable else {
+        guard let configurableCell = cell as? GenreConfigurable else {
             fatalError("GenreTableViewCell Must Conform with MainnConfigurable")
         }
         configurableCell.configure(with: viewModel)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // swiftlint:disable:next force_unwrapping
+        let viewModel = self.dataProvider[indexPath]!
+        guard let id = viewModel.model.id else {
+            return
+        }
+        router?.navigateToMoviesByGenre(id: id)
     }
 }
 
@@ -137,7 +146,7 @@ private extension GenresListTableViewController {
 
     @objc
     func refreshList(sender _: UIRefreshControl) {
-        interactor?.prepareGenresList()
+        interactor?.prepareList()
         refreshControl?.endRefreshing()
     }
 }
@@ -145,7 +154,7 @@ private extension GenresListTableViewController {
 // MARK: - UISearchBarDelegate
 extension GenresListTableViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        interactor?.prepareGenresList()
+        interactor?.prepareList()
     }
 }
 

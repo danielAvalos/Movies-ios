@@ -23,10 +23,10 @@ private extension GenreTableViewCell {
 }
 
 // MARK: - GenreListConfigurable
-extension GenreTableViewCell: GenreListConfigurable {
+extension GenreTableViewCell: GenreConfigurable {
 
-    func configure(with viewModel: GenreListRepresentable) {
-        guard let viewModel = viewModel as? GenreListViewModel else {
+    func configure(with viewModel: GenreRepresentable) {
+        guard let viewModel = viewModel as? GenreViewModel else {
             return
         }
         titleLabel.text = viewModel.model.name

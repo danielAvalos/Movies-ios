@@ -6,13 +6,13 @@
 //
 
 protocol GenresListBusinessLogic {
-    func prepareGenresList()
+    func prepareList()
     func filterContent(forQuery query: String?)
 }
 
 protocol GenresListDataStore {
     var isSearching: Bool { get set }
-    var genresList: [GenreModel] { get }
+    var genresList: [Genre] { get }
 }
 
 final class GenresListInteractor: GenresListDataStore {
@@ -24,7 +24,7 @@ final class GenresListInteractor: GenresListDataStore {
     // MARK: - GenresListDataStore
 
     var isSearching: Bool = false
-    var genresList: [GenreModel] = []
+    var genresList: [Genre] = []
 
     init(service: GenresService) {
         self.service = service
@@ -37,12 +37,17 @@ extension GenresListInteractor: GenresListBusinessLogic {
 
     func filterContent(forQuery query: String?) {
         guard let query = query, !query.isEmpty else {
+            presenter?.presentGenresListResponse(createGenreListResponse(model: genresList))
             return
         }
         isSearching = true
+        let searchResult = genresList.filter {
+            $0.name?.lowercased().contains(query.lowercased()) == true
+        }
+        presenter?.presentGenresListResponse(createGenreListResponse(model: searchResult))
     }
 
-    func prepareGenresList() {
+    func prepareList() {
         isSearching = false
         if ReachabilityManager.shared.isConnected {
             service.getGenresList { [weak self] (model, error) in
@@ -66,7 +71,7 @@ extension GenresListInteractor: GenresListBusinessLogic {
 
 private extension GenresListInteractor {
 
-    func createGenreListResponse(model: [GenreModel]) -> GenresResponse {
+    func createGenreListResponse(model: [Genre]) -> GenresResponse {
         return GenresResponse(genres: model, isSearching: isSearching)
     }
 }

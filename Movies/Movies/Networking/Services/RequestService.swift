@@ -10,26 +10,26 @@ import Alamofire
 
 final class Service {
 
-    static func request<T: Decodable>(apiRouter: APIRouter, completionHandler: @escaping (T?, ErrorModel?) -> Void) {
+    static func request<T: Decodable>(apiRouter: APIRouter, completionHandler: @escaping (T?, Error?) -> Void) {
         let request = AF.request(apiRouter)
         request.responseDecodable(of: T.self) { (response) in
             guard let httpURLResponse = response.response else {
-                completionHandler(nil, ErrorModel(code: .errorServer, descriptionLocalizable: response.error?.errorDescription))
+                completionHandler(nil, Error(code: .errorServer, descriptionLocalizable: response.error?.errorDescription))
                 return
             }
             switch httpURLResponse.statusCode {
             case 200, 204:
                 completionHandler(response.value, nil)
             case 401:
-                completionHandler(nil, ErrorModel(code: .notAuthorized))
+                completionHandler(nil, Error(code: .notAuthorized))
             case 400:
-                completionHandler(nil, ErrorModel(code: .badRequest))
+                completionHandler(nil, Error(code: .badRequest))
             case 404:
-                completionHandler(nil, ErrorModel(code: .notFound))
+                completionHandler(nil, Error(code: .notFound))
             case 500:
-                completionHandler(nil, ErrorModel(code: .errorServer))
+                completionHandler(nil, Error(code: .errorServer))
             default:
-                completionHandler(nil, ErrorModel(code: .unknown))
+                completionHandler(nil, Error(code: .unknown))
             }
         }
     }

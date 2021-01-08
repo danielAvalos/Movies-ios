@@ -1,0 +1,208 @@
+{
+  "id": 28,
+  "page": 1,
+  "results": [
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 88512,
+      "item_count": 573,
+      "iso_639_1": "es",
+      "list_type": "movie",
+      "name": "Películas favoritas",
+      "poster_path": null
+    },
+    {
+      "description": "good movies (sorted by year)",
+      "favorite_count": 0,
+      "id": 15376,
+      "item_count": 132,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Like",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 7071408,
+      "item_count": 100,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "My Favorite Movies",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 128648,
+      "item_count": 195,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "IMDb Top Rated",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 7066191,
+      "item_count": 115,
+      "iso_639_1": "es",
+      "list_type": "movie",
+      "name": "Mis Pelis ",
+      "poster_path": null
+    },
+    {
+      "description": "Radarr movies",
+      "favorite_count": 0,
+      "id": 32715,
+      "item_count": 391,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Movies",
+      "poster_path": null
+    },
+    {
+      "description": "Master List In Progress",
+      "favorite_count": 0,
+      "id": 51108,
+      "item_count": 7992,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "My Movies",
+      "poster_path": null
+    },
+    {
+      "description": "my collection",
+      "favorite_count": 0,
+      "id": 35027,
+      "item_count": 2669,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "DVD",
+      "poster_path": null
+    },
+    {
+      "description": "watched movies - a personal reminder",
+      "favorite_count": 0,
+      "id": 47953,
+      "item_count": 1100,
+      "iso_639_1": "it",
+      "list_type": "movie",
+      "name": "Memento - movies",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 137159,
+      "item_count": 1127,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "All Film's A - H",
+      "poster_path": null
+    },
+    {
+      "description": "Tutti i film visti (by joeki)",
+      "favorite_count": 0,
+      "id": 337,
+      "item_count": 1409,
+      "iso_639_1": "it",
+      "list_type": "movie",
+      "name": "Seen movies",
+      "poster_path": "/svSvwoP1A8P7rzr0XVO7NdSpCd5.jpg"
+    },
+    {
+      "description": "My favorite films",
+      "favorite_count": 0,
+      "id": 105434,
+      "item_count": 323,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Favorite films",
+      "poster_path": null
+    },
+    {
+      "description": "Movies I have seen!",
+      "favorite_count": 0,
+      "id": 35362,
+      "item_count": 2807,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "All My Movies",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 7060234,
+      "item_count": 328,
+      "iso_639_1": "es",
+      "list_type": "movie",
+      "name": "Peliculas pendientes",
+      "poster_path": null
+    },
+    {
+      "description": "Films de guerre de ma collection.",
+      "favorite_count": 0,
+      "id": 7065313,
+      "item_count": 84,
+      "iso_639_1": "fr",
+      "list_type": "movie",
+      "name": "Guerre (Collection)",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 105919,
+      "item_count": 1084,
+      "iso_639_1": "es",
+      "list_type": "movie",
+      "name": "Películas Vistas",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 143027,
+      "item_count": 1748,
+      "iso_639_1": "es",
+      "list_type": "movie",
+      "name": "Drama",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 107706,
+      "item_count": 4533,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Watched Movies",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 7065015,
+      "item_count": 452,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Plex",
+      "poster_path": null
+    },
+    {
+      "description": "",
+      "favorite_count": 0,
+      "id": 13480,
+      "item_count": 732,
+      "iso_639_1": "en",
+      "list_type": "movie",
+      "name": "Over a  Lifetime ",
+      "poster_path": null
+    }
+  ],
+  "total_pages": 37,
+  "total_results": 739
+}

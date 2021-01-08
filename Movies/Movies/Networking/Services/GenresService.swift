@@ -9,7 +9,7 @@ import Alamofire
 
 final class GenresService {
 
-    func getGenresList(completionHandler: @escaping (GenresResponse?, ErrorModel?) -> Void) {
+    func getGenresList(completionHandler: @escaping (GenresResponse?, Error?) -> Void) {
         Service.request(apiRouter: APIRouter.getGenresList,
                         completionHandler: completionHandler)
     }

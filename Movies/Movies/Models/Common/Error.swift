@@ -5,7 +5,7 @@
 //  Created by DESARROLLO on 6/01/21.
 //
 
-struct ErrorModel: ErrorRepresentable {
+struct Error: ErrorRepresentable {
 
     var description: String {
         switch code {

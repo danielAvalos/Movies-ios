@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct GenreModel {
+struct Genre {
 
     let id: Int?
     let name: String?
 }
 
-extension GenreModel: Codable {
+extension Genre: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id

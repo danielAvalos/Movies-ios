@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MessageModel {
+struct Message {
     let title: String?
     let description: String?
     let action: ButtonItem?

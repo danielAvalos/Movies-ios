@@ -6,7 +6,7 @@
 //
 
 struct GenresResponse {
-    var genres: [GenreModel]?
+    var genres: [Genre]?
     var isSearching: Bool?
 }
 

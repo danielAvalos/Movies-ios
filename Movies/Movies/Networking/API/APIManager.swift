@@ -11,10 +11,15 @@ enum APIRouter: URLRequestConvertible {
 
     case getGenresList
     case getMoviesByGenre(id: Int)
+    case getPopular
+    case getImages(movieId: Int)
 
     var method: HTTPMethod {
         switch self {
-        case .getGenresList, .getMoviesByGenre:
+        case .getGenresList,
+             .getMoviesByGenre,
+             .getImages,
+             .getPopular:
             return .get
         }
     }
@@ -25,13 +30,19 @@ enum APIRouter: URLRequestConvertible {
             return "/genre/movie/list?api_key=\(ConfigManager.apiKey.rawValue)"
         case let .getMoviesByGenre(id):
             return "/movie/\(id)/lists?api_key=\(ConfigManager.apiKey.rawValue)"
+        case .getPopular:
+            return "/movie/popular?api_key=\(ConfigManager.apiKey.rawValue)"
+        case let .getImages(movieId):
+            return "/movie/\(movieId)/images"
         }
     }
 
     var parameters: Parameters? {
         switch self {
         case .getMoviesByGenre,
-             .getGenresList:
+             .getGenresList,
+             .getPopular,
+             .getImages:
             return nil
         }
     }

@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol MovieDetailDisplayLogic: class {
+    func displayData(_ viewmodel: MovieDetailViewModel)
+    func displayMessage(model: Message)
+    func displayError(model: Error)
+}
+
 final class MovieDetailViewController: UIViewController {
+
+    var interactor: (MovieDetailBusinessLogic & MovieDetailDataStore)?
 
     // MARK: - IB Outlets
 
@@ -19,4 +27,10 @@ final class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+}
+
+extension MovieDetailViewController: MovieDetailDisplayLogic {
+    func displayData(_ viewmodel: MovieDetailViewModel) {}
+    func displayMessage(model: Message) {}
+    func displayError(model: Error) {}
 }

@@ -13,13 +13,15 @@ enum APIRouter: URLRequestConvertible {
     case getMoviesByGenre(id: Int)
     case getPopular
     case getImages(movieId: Int)
+    case getMovieDetail(id: Int)
 
     var method: HTTPMethod {
         switch self {
         case .getGenresList,
              .getMoviesByGenre,
              .getImages,
-             .getPopular:
+             .getPopular,
+             .getMovieDetail:
             return .get
         }
     }
@@ -27,13 +29,15 @@ enum APIRouter: URLRequestConvertible {
     var path: String {
         switch self {
         case .getGenresList:
-            return "/genre/movie/list?api_key=\(ConfigManager.apiKey.rawValue)"
+            return "/genre/movie/list"
         case let .getMoviesByGenre(id):
-            return "/movie/\(id)/lists?api_key=\(ConfigManager.apiKey.rawValue)"
+            return "/movie/\(id)/lists"
         case .getPopular:
-            return "/movie/popular?api_key=\(ConfigManager.apiKey.rawValue)"
+            return "/movie/popular"
         case let .getImages(movieId):
             return "/movie/\(movieId)/images"
+        case let .getMovieDetail(id):
+            return "/movie/\(id)"
         }
     }
 
@@ -42,7 +46,8 @@ enum APIRouter: URLRequestConvertible {
         case .getMoviesByGenre,
              .getGenresList,
              .getPopular,
-             .getImages:
+             .getImages,
+             .getMovieDetail:
             return nil
         }
     }
@@ -55,7 +60,7 @@ enum APIRouter: URLRequestConvertible {
     }
 
     func asURLRequest() throws -> URLRequest {
-        let url = try "\(Config.apiBaseUrl)\(path)".asURL()
+        let url = try "\(Config.apiBaseUrl)\(path)?api_key=\(ConfigManager.apiKey.rawValue)".asURL()
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         urlRequest = try encoding.encode(urlRequest, with: parameters)

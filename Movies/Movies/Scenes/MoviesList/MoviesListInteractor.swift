@@ -22,7 +22,7 @@ final class MoviesListInteractor: MoviesListDataStore {
 
     private let service: MoviesService
 
-    // MARK: - GenresListDataStore
+    // MARK: - MoviesListDataStore
 
     var isSearching: Bool = false
     var moviesList: [Movie] = []
@@ -33,7 +33,7 @@ final class MoviesListInteractor: MoviesListDataStore {
     }
 }
 
-// MARK: - GenresListBusinessLogic
+// MARK: - MoviesListBusinessLogic
 
 extension MoviesListInteractor: MoviesListBusinessLogic {
 

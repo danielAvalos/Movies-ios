@@ -10,7 +10,11 @@ import Alamofire
 
 final class MoviesCollectionViewCell: UICollectionViewCell, NibLoadableView {
 
-    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var containerView: UIView! {
+        didSet {
+            containerView.backgroundColor = UIColor.secondarySystemBackground
+        }
+    }
     @IBOutlet private weak var movieImageView: UIImageView!
 
     override func awakeFromNib() {
@@ -31,5 +35,6 @@ extension MoviesCollectionViewCell: MovieConfigurable {
         guard let viewModel = viewModel as? MovieViewModel else {
             return
         }
+        movieImageView.backgroundColor = UIColor.black
     }
 }

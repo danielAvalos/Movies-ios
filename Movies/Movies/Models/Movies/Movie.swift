@@ -17,7 +17,6 @@ protocol MovieProtocol {
     var overview: String? { get set }
     var popularity: Double? { get set }
     var posterPath: String? { get set }
-    var releaseDate: Date? { get set }
     var title: String? { get set }
     var video: Bool? { get set }
     var voteAverage: Double? { get set }
@@ -34,7 +33,6 @@ struct Movie: MovieProtocol {
     var overview: String?
     var popularity: Double?
     var posterPath: String?
-    var releaseDate: Date?
     var title: String?
     var video: Bool?
     var voteAverage: Double?
@@ -53,7 +51,6 @@ extension Movie: Codable {
         case overview
         case popularity
         case posterPath = "poster_path"
-        case releaseDate = "release_date"
         case title
         case video
         case voteAverage = "vote_average"

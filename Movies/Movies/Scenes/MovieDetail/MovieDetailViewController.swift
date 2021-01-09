@@ -26,6 +26,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var languagesLabel: UILabel!
     @IBOutlet private weak var isAdultLabel: UILabel!
     @IBOutlet private weak var homePageButton: UIButton!
+    @IBOutlet private weak var videoButton: CustomizedButton!
 
     static func instantiate() -> UIViewController? {
         let storyboard = UIStoryboard(name: StoryboardName.movieDetail.rawValue,
@@ -55,6 +56,7 @@ final class MovieDetailViewController: UIViewController {
 
 // MARK: - MovieDetailDisplayLogic
 extension MovieDetailViewController: MovieDetailDisplayLogic {
+
     func displayData(_ viewModel: MovieDetailViewModel) {
         let model = viewModel.model
         guard let path = model.backdropPath else {
@@ -63,15 +65,9 @@ extension MovieDetailViewController: MovieDetailDisplayLogic {
         guard let url = URL(string: "\(Config.apiImageBaseUrl)\(path)") else {
             return
         }
-        loadImage(url: url)
-        loadText(model: model)
-        if let homePage = model.homepage,
-           URL(string: homePage) != nil {
-            homePageButton.isHidden = false
-            homePageButton.setTitle(homePage, for: .normal)
-        } else {
-            homePageButton.isHidden = true
-        }
+        setupImage(url: url)
+        setupText(model: model)
+        setupButtons(model)
     }
 
     func displayMessage(model: Message) {
@@ -97,7 +93,7 @@ private extension MovieDetailViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
-    func loadText(model: MovieDetail) {
+    func setupText(model: MovieDetail) {
         if let title = model.title {
             titleLabel.text = title
         } else {
@@ -138,7 +134,18 @@ private extension MovieDetailViewController {
         languagesLabel.isHidden = true
     }
 
-    func loadImage(url: URL) {
+    func setupButtons(_ model: MovieDetail) {
+        videoButton.isHidden = !(model.video ?? false)
+        if let homePage = model.homepage,
+           URL(string: homePage) != nil {
+            homePageButton.isHidden = false
+            homePageButton.setTitle(homePage, for: .normal)
+        } else {
+            homePageButton.isHidden = true
+        }
+    }
+
+    func setupImage(url: URL) {
         image.sd_setImage(with: url,
                                  placeholderImage: UIImage.init(named: "placeholder"),
                                  options: .lowPriority) { [weak self] (image, _, _, _) in
@@ -159,5 +166,8 @@ private extension MovieDetailViewController {
         } else {
             showToast(message: "Invalid URL")
         }
+    }
+
+    @IBAction func didTapVideo(_ sender: Any) {
     }
 }

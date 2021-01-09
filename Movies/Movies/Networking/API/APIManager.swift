@@ -10,18 +10,28 @@ import Alamofire
 enum APIRouter: URLRequestConvertible {
 
     case getGenresList
-    case getMoviesByGenre(id: Int)
+    case getMoviesBy(genreId: Int)
     case getPopular
     case getImages(movieId: Int)
     case getMovieDetail(id: Int)
+    case getSimilarBy(movieId: Int)
+    case getVideosBy(movieId: Int)
+    case getTopRated
+    case getUpcoming
+    case getLatest
 
     var method: HTTPMethod {
         switch self {
         case .getGenresList,
-             .getMoviesByGenre,
+             .getMoviesBy,
              .getImages,
              .getPopular,
-             .getMovieDetail:
+             .getMovieDetail,
+             .getSimilarBy,
+             .getVideosBy,
+             .getTopRated,
+             .getUpcoming,
+             .getLatest:
             return .get
         }
     }
@@ -30,26 +40,29 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .getGenresList:
             return "/genre/movie/list"
-        case let .getMoviesByGenre(id):
-            return "/movie/\(id)/lists"
+        case let .getMoviesBy(genreId):
+            return "/movie/\(genreId)/lists"
         case .getPopular:
             return "/movie/popular"
         case let .getImages(movieId):
             return "/movie/\(movieId)/images"
         case let .getMovieDetail(id):
             return "/movie/\(id)"
+        case let .getSimilarBy(movieId):
+            return "/movie/\(movieId)/similar"
+        case let .getVideosBy(movieId):
+            return "/movie/\(movieId)/videos"
+        case .getTopRated:
+            return "/movie/top_rated"
+        case .getUpcoming:
+            return "/movie/upcoming"
+        case .getLatest:
+            return "/movie/latest"
         }
     }
 
     var parameters: Parameters? {
-        switch self {
-        case .getMoviesByGenre,
-             .getGenresList,
-             .getPopular,
-             .getImages,
-             .getMovieDetail:
-            return nil
-        }
+        return nil
     }
 
     var encoding: ParameterEncoding {
@@ -71,4 +84,6 @@ enum APIRouter: URLRequestConvertible {
 struct Config {
     static let apiBaseUrl = "https://api.themoviedb.org/3"
     static let apiImageBaseUrl = "https://image.tmdb.org/t/p/w500"
+    static let apiYoutubeBaseUrl = "https://www.youtube.com/watch?v="
+    static let apiVimeoBaseUrl = "https://vimeo.com/"
 }

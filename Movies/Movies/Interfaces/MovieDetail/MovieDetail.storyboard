@@ -75,6 +75,24 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bsr-uu-R29" customClass="CustomizedButton" customModule="Movies" customModuleProvider="target">
+                                        <rect key="frame" x="334" y="179" width="50" height="50"/>
+                                        <color key="backgroundColor" name="redColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Bsr-uu-R29" secondAttribute="height" multiplier="1:1" id="DED-O6-jry"/>
+                                            <constraint firstAttribute="width" constant="50" id="QVw-08-iM8"/>
+                                        </constraints>
+                                        <color key="tintColor" name="whiteColor"/>
+                                        <state key="normal" image="play.fill" catalog="system"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didTapVideo:" destination="9Bm-hz-ulX" eventType="touchUpInside" id="zOe-Ww-MRK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="DYB-T1-Z0f" secondAttribute="bottom" constant="10" id="0de-Ab-S5f"/>
@@ -84,6 +102,8 @@
                                     <constraint firstItem="DYB-T1-Z0f" firstAttribute="leading" secondItem="IpE-nv-Jdt" secondAttribute="leading" constant="20" id="PPX-jo-lub"/>
                                     <constraint firstItem="DYB-T1-Z0f" firstAttribute="top" secondItem="skh-IG-jUa" secondAttribute="bottom" constant="20" id="YVC-6f-o1s"/>
                                     <constraint firstItem="DYB-T1-Z0f" firstAttribute="centerX" secondItem="IpE-nv-Jdt" secondAttribute="centerX" id="cEQ-2W-niX"/>
+                                    <constraint firstItem="Bsr-uu-R29" firstAttribute="bottom" secondItem="skh-IG-jUa" secondAttribute="bottom" constant="-40" id="edo-qf-fcc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bsr-uu-R29" secondAttribute="trailing" constant="30" id="wpa-We-z6D"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="w9v-2K-Rd9"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="its-aP-RzG"/>
@@ -109,6 +129,7 @@
                         <outlet property="languagesLabel" destination="0JP-Ao-7Px" id="AQJ-L5-nnE"/>
                         <outlet property="popularityLabel" destination="B3Q-sD-bts" id="1Qc-6s-wDU"/>
                         <outlet property="titleLabel" destination="enM-5i-Akv" id="7Mp-og-2e6"/>
+                        <outlet property="videoButton" destination="Bsr-uu-R29" id="MUl-Hu-epH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqA-la-inL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -116,12 +137,24 @@
             <point key="canvasLocation" x="80" y="6"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Bsr-uu-R29">
+            <size key="intrinsicContentSize" width="15" height="22"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
         <namedColor name="blackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="orangeColor">
             <color red="1" green="0.58399999141693115" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="redColor">
+            <color red="1" green="0.23100000619888306" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="whiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

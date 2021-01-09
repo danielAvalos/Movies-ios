@@ -19,6 +19,7 @@ enum APIRouter: URLRequestConvertible {
     case getTopRated
     case getUpcoming
     case getLatest
+    case getNowPlaying
 
     var method: HTTPMethod {
         switch self {
@@ -31,7 +32,8 @@ enum APIRouter: URLRequestConvertible {
              .getVideosBy,
              .getTopRated,
              .getUpcoming,
-             .getLatest:
+             .getLatest,
+             .getNowPlaying:
             return .get
         }
     }
@@ -58,6 +60,8 @@ enum APIRouter: URLRequestConvertible {
             return "/movie/upcoming"
         case .getLatest:
             return "/movie/latest"
+        case .getNowPlaying:
+            return "/movie/now_playing"
         }
     }
 

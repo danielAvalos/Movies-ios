@@ -39,20 +39,21 @@ extension MovieDetailInteractor: MovieDetailBusinessLogic {
         guard let id = id else {
             return
         }
-        if ReachabilityManager.shared.isConnected {
-            service.getDetail(id: id) { [weak self] (response, error) in
-                guard let strongSelf = self,
-                      let model = response else {
-                    return
-                }
-                strongSelf.movie = response
-                guard let error = error else {
-                    strongSelf.presenter?.presentResponse(strongSelf.createResponse(model: model))
-                    return
-                }
-                strongSelf.presenter?.presentError(error)
+        guard ReachabilityManager.shared.isConnected == true else {
+            presenter?.presentError(Error(code: .notConnection))
+            return
+        }
+        service.getDetail(id: id) { [weak self] (response, error) in
+            guard let strongSelf = self,
+                  let model = response else {
+                return
             }
-        } else {
+            strongSelf.movie = response
+            guard let error = error else {
+                strongSelf.presenter?.presentResponse(strongSelf.createResponse(model: model))
+                return
+            }
+            strongSelf.presenter?.presentError(error)
         }
     }
 }

@@ -21,6 +21,11 @@ final class MoviesCollectionViewCell: UICollectionViewCell, NibLoadableView {
             movieImageView.layer.cornerRadius = 8
         }
     }
+    @IBOutlet private weak var withVideoImageView: UIImageView! {
+        didSet {
+            withVideoImageView.layer.cornerRadius = withVideoImageView.frame.width / 2
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,5 +57,6 @@ extension MoviesCollectionViewCell: MovieConfigurable {
             }
             self?.movieImageView.image = image
         }
+        withVideoImageView.isHidden = !(viewModel.model.video ?? false)
     }
 }

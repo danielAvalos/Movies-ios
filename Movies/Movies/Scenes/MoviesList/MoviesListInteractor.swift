@@ -67,8 +67,10 @@ extension MoviesListInteractor: MoviesListBusinessLogic {
             callTopRatedMovies()
         case .upcoming:
             callUpcomingMovies()
-        default:
+        case .popular:
             callPopularsMovies()
+        case .nowPlaying:
+            callNowPlayingsMovies()
         }
     }
 
@@ -95,10 +97,11 @@ private extension MoviesListInteractor {
 
     func callLatestMovies() {
         service.getLatest { [weak self] (model, error) in
-            guard let strongSelf = self else {
+            guard let strongSelf = self,
+                  let model = model else {
                 return
             }
-            strongSelf.responseCall(model, error)
+            strongSelf.responseCall(strongSelf.createResponse(model: [model]), error)
         }
     }
 
@@ -113,6 +116,15 @@ private extension MoviesListInteractor {
 
     func callTopRatedMovies() {
         service.getTopRated { [weak self] (model, error) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.responseCall(model, error)
+        }
+    }
+
+    func callNowPlayingsMovies() {
+        service.getNowPlaying { [weak self] (model, error) in
             guard let strongSelf = self else {
                 return
             }

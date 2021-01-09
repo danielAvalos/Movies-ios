@@ -113,22 +113,27 @@ private extension MoviesListViewController {
                                                   height: 0)
             popoverController.permittedArrowDirections = []
         }
+        let latestAction = UIAlertAction(title: "Latest",
+                                         style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .latest
+            self?.interactor?.prepareList()
+        }
+        let nowPlayingAction = UIAlertAction(title: "Now Playings",
+                                            style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .nowPlaying
+            self?.interactor?.prepareList()
+        }
         let popularAction = UIAlertAction(title: "Populars",
                                           style: .default) { [weak self] _ in
             self?.interactor?.movieType = .popular
             self?.interactor?.prepareList()
         }
-        let latestAction = UIAlertAction(title: "latest",
-                                         style: .default) { [weak self] _ in
-            self?.interactor?.movieType = .latest
-            self?.interactor?.prepareList()
-        }
-        let topRatedAction = UIAlertAction(title: "topRated",
+        let topRatedAction = UIAlertAction(title: "Top Rated",
                                            style: .default) { [weak self] _ in
             self?.interactor?.movieType = .topRated
             self?.interactor?.prepareList()
         }
-        let upcommingAction = UIAlertAction(title: "upcoming",
+        let upcommingAction = UIAlertAction(title: "Upcomings",
                                             style: .default) { [weak self] _ in
             self?.interactor?.movieType = .upcoming
             self?.interactor?.prepareList()
@@ -138,8 +143,9 @@ private extension MoviesListViewController {
                                          handler: nil)
         cancelAction.setValue(UIColor.color(named: .orange),
                               forKey: "titleTextColor")
-        alertController.addAction(popularAction)
         alertController.addAction(latestAction)
+        alertController.addAction(nowPlayingAction)
+        alertController.addAction(popularAction)
         alertController.addAction(topRatedAction)
         alertController.addAction(upcommingAction)
         alertController.addAction(cancelAction)
@@ -160,13 +166,13 @@ private extension MoviesListViewController {
         case .popular:
             navigationItem.title = "Populars movies"
         case .latest:
-            navigationItem.title = "Latest movies"
+            navigationItem.title = "Latest movie"
         case .topRated:
             navigationItem.title = "Top Rated movies"
         case .upcoming:
-            navigationItem.title = "Upcoming movies"
+            navigationItem.title = "Upcomings movies"
         case .nowPlaying:
-            navigationItem.title = "Now playing movies"
+            navigationItem.title = "Now playings movies"
         }
     }
 

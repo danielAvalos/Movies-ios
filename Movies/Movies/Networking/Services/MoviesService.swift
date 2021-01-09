@@ -49,7 +49,12 @@ final class MoviesService {
                         completionHandler: completionHandler)
     }
 
-    func getLatest(completionHandler: @escaping (MovieResponse?, Error?) -> Void) {
+    func getNowPlaying(completionHandler: @escaping (MovieResponse?, Error?) -> Void) {
+        Service.request(apiRouter: APIRouter.getNowPlaying,
+                        completionHandler: completionHandler)
+    }
+
+    func getLatest(completionHandler: @escaping (Movie?, Error?) -> Void) {
         Service.request(apiRouter: APIRouter.getLatest,
                         completionHandler: completionHandler)
     }

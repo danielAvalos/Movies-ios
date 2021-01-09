@@ -24,11 +24,22 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrL-5e-jGf">
                                 <rect key="frame" x="2" y="2" width="96" height="146"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5re-tU-2hY">
+                                <rect key="frame" x="59" y="109.5" width="29" height="28"/>
+                                <color key="backgroundColor" name="whiteColor"/>
+                                <color key="tintColor" name="redColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5re-tU-2hY" secondAttribute="height" multiplier="1:1" id="fM6-Cs-Hxh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="5re-tU-2hY" firstAttribute="trailing" secondItem="YrL-5e-jGf" secondAttribute="trailing" constant="-10" id="Syc-73-Nqc"/>
+                            <constraint firstItem="5re-tU-2hY" firstAttribute="width" secondItem="YrL-5e-jGf" secondAttribute="width" multiplier="0.3" id="UXq-oa-Nub"/>
                             <constraint firstItem="YrL-5e-jGf" firstAttribute="centerY" secondItem="aTw-WM-sdb" secondAttribute="centerY" id="l32-7X-ac8"/>
                             <constraint firstItem="YrL-5e-jGf" firstAttribute="centerX" secondItem="aTw-WM-sdb" secondAttribute="centerX" id="m8V-cI-i1r"/>
+                            <constraint firstItem="5re-tU-2hY" firstAttribute="bottom" secondItem="YrL-5e-jGf" secondAttribute="bottom" constant="-10" id="sTf-7g-hRP"/>
                             <constraint firstItem="YrL-5e-jGf" firstAttribute="top" secondItem="aTw-WM-sdb" secondAttribute="top" constant="2" id="t54-J4-FVm"/>
                             <constraint firstItem="YrL-5e-jGf" firstAttribute="leading" secondItem="aTw-WM-sdb" secondAttribute="leading" constant="2" id="xL7-PA-I9j"/>
                         </constraints>
@@ -43,13 +54,18 @@
                 <constraint firstItem="aTw-WM-sdb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rxR-xf-lpa"/>
             </constraints>
             <connections>
-                <outlet property="containerView" destination="aTw-WM-sdb" id="nz6-qj-kTh"/>
+                <outlet property="containerView" destination="5re-tU-2hY" id="SkX-W2-Lps"/>
                 <outlet property="movieImageView" destination="YrL-5e-jGf" id="qWC-pP-i0A"/>
+                <outlet property="withVideoImageView" destination="5re-tU-2hY" id="AXe-aG-B23"/>
             </connections>
             <point key="canvasLocation" x="141" y="79"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="play.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="redColor">
+            <color red="1" green="0.23100000619888306" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="whiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

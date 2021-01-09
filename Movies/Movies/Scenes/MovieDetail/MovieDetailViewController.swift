@@ -59,13 +59,7 @@ extension MovieDetailViewController: MovieDetailDisplayLogic {
 
     func displayData(_ viewModel: MovieDetailViewModel) {
         let model = viewModel.model
-        guard let path = model.backdropPath else {
-            return
-        }
-        guard let url = URL(string: "\(Config.apiImageBaseUrl)\(path)") else {
-            return
-        }
-        setupImage(url: url)
+        setupImage(urlString: model.backdropPath ?? model.posterPath)
         setupText(model: model)
         setupButtons(model)
     }
@@ -145,7 +139,12 @@ private extension MovieDetailViewController {
         }
     }
 
-    func setupImage(url: URL) {
+    func setupImage(urlString: String?) {
+        guard  let path = urlString,
+               let url = URL(string: "\(Config.apiImageBaseUrl)\(path)") else {
+            image.image = UIImage(named: "placeholder")
+            return
+        }
         image.sd_setImage(with: url,
                                  placeholderImage: UIImage.init(named: "placeholder"),
                                  options: .lowPriority) { [weak self] (image, _, _, _) in

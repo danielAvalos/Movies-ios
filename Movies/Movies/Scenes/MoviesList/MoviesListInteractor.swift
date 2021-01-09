@@ -10,6 +10,7 @@ import Foundation
 protocol MoviesListBusinessLogic {
     func prepareList()
     func filterContent(forQuery query: String?)
+    func sort(sortType: SortType)
 }
 
 protocol MoviesListDataStore {
@@ -39,6 +40,32 @@ final class MoviesListInteractor: MoviesListDataStore {
 // MARK: - MoviesListBusinessLogic
 
 extension MoviesListInteractor: MoviesListBusinessLogic {
+
+    func sort(sortType: SortType) {
+        switch sortType {
+        case .aToZ, .zToA:
+            let moviesSorted = moviesList.sorted { (movieOne, movieTwo) -> Bool in
+                guard let titleOne = movieOne.title else {
+                    return false
+                }
+                guard let titleTwo = movieTwo.title else {
+                    return true
+                }
+                let titleOneWithoutSpecialCharacters = titleOne.folding(options: .diacriticInsensitive,
+                                                                        locale: .current)
+                    .replacingOccurrences(of: " ", with: "")
+                let titleTwoWithoutSpecialCharacters = titleTwo.folding(options: .diacriticInsensitive,
+                                                                        locale: .current)
+                    .replacingOccurrences(of: " ", with: "")
+                if sortType == .aToZ {
+                    return titleOneWithoutSpecialCharacters.lowercased() < titleTwoWithoutSpecialCharacters.lowercased()
+                } else {
+                    return titleOneWithoutSpecialCharacters.lowercased() > titleTwoWithoutSpecialCharacters.lowercased()
+                }
+            }
+            presenter?.presentListResponse(createResponse(model: moviesSorted))
+        }
+    }
 
     func filterContent(forQuery query: String?) {
         guard let query = query, !query.isEmpty else {

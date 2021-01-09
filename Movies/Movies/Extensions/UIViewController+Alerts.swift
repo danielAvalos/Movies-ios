@@ -24,6 +24,21 @@ extension UIViewController {
         present(alertController, animated: true)
     }
 
+    func getAlertController() -> UIAlertController {
+        let alertController = UIAlertController(title: nil,
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX,
+                                                  y: self.view.bounds.midY,
+                                                  width: 0,
+                                                  height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        return alertController
+    }
+
     func showToast(message: String) {
         let toastContainer = UIView(frame: CGRect())
         toastContainer.backgroundColor = UIColor.color(named: .orange)

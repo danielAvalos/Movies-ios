@@ -90,7 +90,7 @@ extension MoviesListViewController: NavigationConfigureProtocol {
         case BarButtonItemTag.categories.rawValue:
             showOptionsCategories()
         case BarButtonItemTag.sort.rawValue:
-            return
+            showOptionsSorts()
         default:
             break
         }
@@ -101,18 +101,33 @@ extension MoviesListViewController: NavigationConfigureProtocol {
 
 private extension MoviesListViewController {
 
-    func showOptionsCategories() {
-        let alertController = UIAlertController(title: nil,
-                                                message: nil,
-                                                preferredStyle: .actionSheet)
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX,
-                                                  y: self.view.bounds.midY,
-                                                  width: 0,
-                                                  height: 0)
-            popoverController.permittedArrowDirections = []
+    func showOptionsSorts() {
+        let alertController = getAlertController()
+        let alphabeticAZ = UIAlertAction(title: "A-Z",
+                                         style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .latest
+            self?.interactor?.sort(sortType: .aToZ)
         }
+        let alphZA = UIAlertAction(title: "Z-A",
+                                         style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .latest
+            self?.interactor?.sort(sortType: .zToA)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        cancelAction.setValue(UIColor.color(named: .orange),
+                              forKey: "titleTextColor")
+        alertController.addAction(alphabeticAZ)
+        alertController.addAction(alphZA)
+        alertController.addAction(cancelAction)
+        present(alertController,
+                animated: true,
+                completion: nil)
+    }
+
+    func showOptionsCategories() {
+        let alertController = getAlertController()
         let latestAction = UIAlertAction(title: "Latest",
                                          style: .default) { [weak self] _ in
             self?.interactor?.movieType = .latest

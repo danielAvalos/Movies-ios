@@ -68,6 +68,7 @@ final class MoviesListViewController: UIViewController {
 extension MoviesListViewController: MoviesDisplayLogic {
     func displayList(_ viewmodel: [MovieViewModel]) {
         dataProvider.update(rows: viewmodel)
+        setupNavigationTitle()
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
         }
@@ -82,22 +83,105 @@ extension MoviesListViewController: MoviesDisplayLogic {
     }
 }
 
+// MARK: - NavigationConfigureProtocol
+extension MoviesListViewController: NavigationConfigureProtocol {
+    func didTapBarItem(sender: UIBarButtonItem) {
+        switch sender.tag {
+        case BarButtonItemTag.categories.rawValue:
+            showOptionsCategories()
+        case BarButtonItemTag.sort.rawValue:
+            return
+        default:
+            break
+        }
+    }
+}
+
 // MARK: - Private functions
 
 private extension MoviesListViewController {
+
+    func showOptionsCategories() {
+        let alertController = UIAlertController(title: nil,
+                                                message: nil,
+                                                preferredStyle: .actionSheet)
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX,
+                                                  y: self.view.bounds.midY,
+                                                  width: 0,
+                                                  height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        let popularAction = UIAlertAction(title: "Populars",
+                                          style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .popular
+            self?.interactor?.prepareList()
+        }
+        let latestAction = UIAlertAction(title: "latest",
+                                         style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .latest
+            self?.interactor?.prepareList()
+        }
+        let topRatedAction = UIAlertAction(title: "topRated",
+                                           style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .topRated
+            self?.interactor?.prepareList()
+        }
+        let upcommingAction = UIAlertAction(title: "upcoming",
+                                            style: .default) { [weak self] _ in
+            self?.interactor?.movieType = .upcoming
+            self?.interactor?.prepareList()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        cancelAction.setValue(UIColor.color(named: .orange),
+                              forKey: "titleTextColor")
+        alertController.addAction(popularAction)
+        alertController.addAction(latestAction)
+        alertController.addAction(topRatedAction)
+        alertController.addAction(upcommingAction)
+        alertController.addAction(cancelAction)
+        present(alertController,
+                animated: true,
+                completion: nil)
+    }
 
     func setup() {
         MoviesListConfigurator.configure(self)
     }
 
+    func setupNavigationTitle() {
+        guard let movieType = interactor?.movieType else {
+            return
+        }
+        switch movieType {
+        case .popular:
+            navigationItem.title = "Populars movies"
+        case .latest:
+            navigationItem.title = "Latest movies"
+        case .topRated:
+            navigationItem.title = "Top Rated movies"
+        case .upcoming:
+            navigationItem.title = "Upcoming movies"
+        case .nowPlaying:
+            navigationItem.title = "Now playing movies"
+        }
+    }
+
     func setupNavigation() {
-        navigationItem.title = "Popular movies"
+        setupNavigationTitle()
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        showLeftBarButtonItems(navigationItem: navigationItem,
+                               items: [.categories])
+        showRightBarButtonItems(navigationItem: navigationItem,
+                                items: [.sort])
     }
 
     func setupCollectionView() {

@@ -13,7 +13,7 @@ final class MoviesCollectionViewCell: UICollectionViewCell, NibLoadableView {
 
     @IBOutlet private weak var containerView: UIView! {
         didSet {
-            containerView.backgroundColor = UIColor.secondarySystemBackground
+            containerView.backgroundColor = UIColor.color(named: .white)
         }
     }
     @IBOutlet private weak var movieImageView: UIImageView! {

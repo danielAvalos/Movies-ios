@@ -18,13 +18,12 @@ struct MovieDetail: MovieProtocol {
     var overview: String?
     var popularity: Double?
     var posterPath: String?
-    var releaseDate: Date?
     var title: String?
     var video: Bool?
     var voteAverage: Double?
     var voteCount: Int?
     var budget: Int64?
-    var genres: Genre?
+    var genres: [Genre]?
     var homepage: String?
     var imdbId: String?
     var revenue: Int64?
@@ -74,7 +73,6 @@ extension MovieDetail: Codable {
         case overview
         case popularity
         case posterPath = "poster_path"
-        case releaseDate = "release_date"
         case title
         case video
         case voteAverage = "vote_average"

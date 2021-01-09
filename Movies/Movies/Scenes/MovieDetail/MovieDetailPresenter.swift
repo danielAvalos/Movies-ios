@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieDetailPresentationLogic {
-    func presentResponse(_ response: MovieDetailResponse)
+    func presentResponse(_ response: MovieDetail)
     func presentError(_ response: Error)
     func presentMessage(_ response: Message)
 }
@@ -17,7 +17,7 @@ final class MovieDetailPresenter {
     weak var viewController: MovieDetailDisplayLogic?
 }
 
-// MARK: - MoviesListPresentationLogic
+// MARK: - MovieDetailPresentationLogic
 
 extension MovieDetailPresenter: MovieDetailPresentationLogic {
 
@@ -29,6 +29,8 @@ extension MovieDetailPresenter: MovieDetailPresentationLogic {
         viewController?.displayMessage(model: response)
     }
 
-    func presentResponse(_ response: MovieDetailResponse) {
+    func presentResponse(_ response: MovieDetail) {
+        let viewModel = MovieDetailViewModel(model: response)
+        viewController?.displayData(viewModel)
     }
 }

@@ -74,9 +74,11 @@ extension MoviesListViewController: MoviesDisplayLogic {
     }
 
     func displayMessage(model: Message) {
+        showToast(message: model.title ?? "")
     }
 
     func displayError(model: Error) {
+        showAlert(title: model.title, message: model.description)
     }
 }
 
@@ -168,9 +170,11 @@ extension MoviesListViewController: UICollectionViewDataSource {
         let viewModel = self.dataProvider[indexPath]!
         let cell: MoviesCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.configure(with: viewModel)
-        cell.layoutIfNeeded()
         return cell
     }
+}
+
+extension MoviesListViewController: UICollectionViewDelegate {
 
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // swiftlint:disable:next force_unwrapping

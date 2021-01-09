@@ -18,4 +18,9 @@ final class MoviesService {
         Service.request(apiRouter: APIRouter.getPopular,
                         completionHandler: completionHandler)
     }
+
+    func getDetail(id: Int, completionHandler: @escaping (MovieDetail?, Error?) -> Void) {
+        Service.request(apiRouter: APIRouter.getMovieDetail(id: id),
+                        completionHandler: completionHandler)
+    }
 }

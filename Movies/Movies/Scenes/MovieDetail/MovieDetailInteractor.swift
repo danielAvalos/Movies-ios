@@ -12,6 +12,7 @@ protocol MovieDetailBusinessLogic {
 }
 
 protocol MovieDetailDataStore {
+    var id: Int? { get set }
     var movie: MovieDetail? { get }
 }
 
@@ -22,7 +23,7 @@ final class MovieDetailInteractor: MovieDetailDataStore {
     private let service: MoviesService
 
     // MARK: - MovieDetailDataStore
-
+    var id: Int?
     var movie: MovieDetail?
 
     init(service: MoviesService) {
@@ -30,18 +31,23 @@ final class MovieDetailInteractor: MovieDetailDataStore {
     }
 }
 
-// MARK: - GenresListBusinessLogic
+// MARK: - MovieDetailBusinessLogic
 
 extension MovieDetailInteractor: MovieDetailBusinessLogic {
 
     func prepare() {
+        guard let id = id else {
+            return
+        }
         if ReachabilityManager.shared.isConnected {
-            service.getPopular { [weak self] (model, error) in
+            service.getDetail(id: id) { [weak self] (response, error) in
                 guard let strongSelf = self,
-                      let model = model else {
+                      let model = response else {
                     return
                 }
+                strongSelf.movie = response
                 guard let error = error else {
+                    strongSelf.presenter?.presentResponse(strongSelf.createResponse(model: model))
                     return
                 }
                 strongSelf.presenter?.presentError(error)
@@ -55,7 +61,7 @@ extension MovieDetailInteractor: MovieDetailBusinessLogic {
 
 private extension MovieDetailInteractor {
 
-    func createResponse(model: MovieDetail) -> MovieDetailResponse {
-        return MovieDetailResponse()
+    func createResponse(model: MovieDetail) -> MovieDetail {
+        model
     }
 }

@@ -43,8 +43,9 @@ extension MoviesListInteractor: MoviesListBusinessLogic {
             return
         }
         isSearching = true
-        let searchResult = moviesList.filter { _ in
-            "$0.id?".lowercased().contains(query.lowercased()) == true
+        let searchResult = moviesList.filter {
+            return $0.title?.lowercased().contains(query.lowercased()) == true ||
+                $0.originalTitle?.lowercased().contains(query.lowercased()) == true
         }
         presenter?.presentListResponse(createResponse(model: searchResult))
     }

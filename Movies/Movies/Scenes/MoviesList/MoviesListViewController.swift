@@ -101,6 +101,12 @@ private extension MoviesListViewController {
     func setupCollectionView() {
         collectionView.registerCells([MoviesCollectionViewCell.self])
         collectionView.refreshControl = refreshControl
+        let screenWidth = self.collectionView.frame.width / 2
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: screenWidth, height: screenWidth * 1.5)
+        collectionView.collectionViewLayout = layout
     }
 
     // MARK: - Actions
@@ -162,24 +168,16 @@ extension MoviesListViewController: UICollectionViewDataSource {
         let viewModel = self.dataProvider[indexPath]!
         let cell: MoviesCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         cell.configure(with: viewModel)
+        cell.layoutIfNeeded()
         return cell
     }
 
-    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) { }
-}
-
-extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch indexPath.section {
-        case 0:
-            let width = (collectionView.frame.width / 2)
-            let height: CGFloat = width * (180 / 167)
-            return CGSize(width: width, height: height)
-        default:
-            let width = collectionView.frame.width
-            let height: CGFloat = (width + 20) * (114 / 345)
-            return CGSize(width: width, height: height)
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // swiftlint:disable:next force_unwrapping
+        let viewModel = self.dataProvider[indexPath]!
+        guard let id = viewModel.model.id else {
+            return
         }
+        router?.navigateToMovieDetail(id: id)
     }
 }

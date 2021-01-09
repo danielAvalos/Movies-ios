@@ -7,6 +7,7 @@ target 'Movies' do
   pod 'Alamofire'
   pod 'IQKeyboardManagerSwift'
   pod 'ReachabilitySwift'
+  pod 'SDWebImage'
   pod 'SwiftLint'
 
   # Pods for Movies

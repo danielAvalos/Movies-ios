@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SDWebImage
 
 final class MoviesCollectionViewCell: UICollectionViewCell, NibLoadableView {
 
@@ -15,7 +16,11 @@ final class MoviesCollectionViewCell: UICollectionViewCell, NibLoadableView {
             containerView.backgroundColor = UIColor.secondarySystemBackground
         }
     }
-    @IBOutlet private weak var movieImageView: UIImageView!
+    @IBOutlet private weak var movieImageView: UIImageView! {
+        didSet {
+            movieImageView.layer.cornerRadius = 8
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,9 +37,20 @@ private extension MoviesCollectionViewCell {
 extension MoviesCollectionViewCell: MovieConfigurable {
 
     func configure(with viewModel: MovieRepresentable) {
-        guard let viewModel = viewModel as? MovieViewModel else {
+        guard let viewModel = viewModel as? MovieViewModel,
+              let path = viewModel.model.posterPath else {
             return
         }
-        movieImageView.backgroundColor = UIColor.black
+        guard let url = URL(string: "\(Config.apiImageBaseUrl)\(path)") else {
+            return
+        }
+        movieImageView.sd_setImage(with: url,
+                                 placeholderImage: UIImage.init(named: "placeholder"),
+                                 options: .lowPriority) { [weak self] (image, _, _, _) in
+            guard let image = image else {
+                return
+            }
+            self?.movieImageView.image = image
+        }
     }
 }

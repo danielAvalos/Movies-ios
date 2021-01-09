@@ -70,4 +70,5 @@ enum APIRouter: URLRequestConvertible {
 
 struct Config {
     static let apiBaseUrl = "https://api.themoviedb.org/3"
+    static let apiImageBaseUrl = "https://image.tmdb.org/t/p/w200"
 }

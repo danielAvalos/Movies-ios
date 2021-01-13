@@ -13,13 +13,6 @@ The display of the information of the most popular movies on the TMDb server.
 * execute pod Install
 * CleanSwift design pattern
 
-### The Server
-
-Run the mock server (included in this repo) by executing:
-
-* $ npm install
-* $ npm start
-
 ### Contribution guidelines ###
 
 * perform pull to request if you want to add some functionality
